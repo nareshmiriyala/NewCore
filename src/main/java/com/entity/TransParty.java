@@ -51,6 +51,14 @@ public class TransParty implements Serializable {
     public TransParty() {
     }
 
+    public TransParty(int type,Long amount,Long currBalance,Trans trans,Account account) {
+        this.type=type;
+        this.amount=amount;
+        this.trans=trans;
+        this.account=account;
+        this.currBalance=currBalance;
+    }
+
     public TransParty(TransPartyPK transPartyPK) {
         this.transPartyPK = transPartyPK;
     }

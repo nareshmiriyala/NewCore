@@ -61,8 +61,7 @@ public class Trans implements Serializable {
         this.id = id;
     }
 
-    public Trans(Long id, String type, short result, short state, Date created, Date lastModified) {
-        this.id = id;
+    public Trans( String type, short result, short state, Date created, Date lastModified) {
         this.type = type;
         this.result = result;
         this.state = state;

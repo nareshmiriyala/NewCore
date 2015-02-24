@@ -48,9 +48,16 @@ public class Account implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
-    public Account() {
+    public Account(BigDecimal avilableBalance,BigDecimal pendingBalance,BigDecimal currentBalance,Date created) {
+        this.avilableBalance=avilableBalance;
+        this.pendingBalance=pendingBalance;
+        this.currentBalance=currentBalance;
+        this.created=created;
     }
 
+    public Account(){
+
+    }
     public Account(Long id) {
         this.id = id;
     }

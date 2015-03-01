@@ -26,10 +26,25 @@ public class AdjustWallet {
         List<Account> samePartyAccounts=getSamePartyAccounts(accountMap,transParty,proxyIdParty);
         //get the total balance of all same party accounts
         BigDecimal totalBalance=getTotalBalance(samePartyAccounts);
-        if(totalBalance.compareTo(adjust.getAvailableBalance())<0){
+        if(totalBalance.compareTo(adjust.getAvailableBalance().negate())<0){
             return 1001;//insufficient funds
         }
+        WalletBalance newAdjust=adjust;
+       for(Account account:samePartyAccounts){
+           if(newAdjust.getAvailableBalance().compareTo(account.getBalance().getAvailableBalance())>0){
+               //negate the available balance from account
+               account.getBalance().getAvailableBalance().add(account.getBalance().getAvailableBalance().negate());
+               getLockedAccounts().put(account.getID(),account);
+               newAdjust=newAdjust.subtract(account.getBalance());
+               if(newAdjust.isZero()){
+                   break;
+               }
 
+           }else {
+               account.getBalance().getAvailableBalance().add(newAdjust.getAvailableBalance());
+               getLockedAccounts().put(account.getID(),account);
+           }
+       }
 
 
 
